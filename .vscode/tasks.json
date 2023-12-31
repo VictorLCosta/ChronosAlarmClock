@@ -44,7 +44,7 @@
 			"args": [
 				"build",
 				"--no-restore",
-				"${workspaceFolder}/AlarmClock.Android.csproj",
+				"${workspaceFolder}/UI/AlarmClock.Android.csproj",
 				"-p:TargetFramework=net7.0-android",
 				"-p:Configuration=Debug"
 			],
