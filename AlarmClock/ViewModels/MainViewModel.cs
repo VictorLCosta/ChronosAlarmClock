@@ -1,6 +1,14 @@
-﻿namespace AlarmClock.ViewModels;
+﻿using CommunityToolkit.Mvvm.Input;
 
-public class MainViewModel : ViewModelBase
+namespace AlarmClock.ViewModels;
+
+public partial class MainViewModel : ViewModelBase
 {
     public string Greeting => "Welcome to Avalonia!";
+
+    [RelayCommand]
+    private void Clicado()
+    {
+        
+    }
 }

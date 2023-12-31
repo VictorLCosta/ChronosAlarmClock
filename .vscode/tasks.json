@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/AlarmClock.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/AlarmClock.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/AlarmClock.sln"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+			"label": "build-android",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"--no-restore",
+				"${workspaceFolder}/AlarmClock.Android.csproj",
+				"-p:TargetFramework=net7.0-android",
+				"-p:Configuration=Debug"
+			],
+			"problemMatcher": "$msCompile"
+		}
+    ]
+}

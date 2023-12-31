@@ -10,5 +10,6 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <Button Content="Clica Ae" Command="{Binding ClicadoCommand}" HorizontalAlignment="Center" />
+
 </UserControl>
