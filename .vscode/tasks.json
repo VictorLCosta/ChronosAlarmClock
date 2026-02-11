@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AlarmClock.sln",
+                "${workspaceFolder}/src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/AlarmClock.sln",
+                "${workspaceFolder}/src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -33,22 +33,9 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/AlarmClock.sln"
+                "${workspaceFolder}/src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-			"label": "build-android",
-			"command": "dotnet",
-			"type": "process",
-			"args": [
-				"build",
-				"--no-restore",
-				"${workspaceFolder}/UI/AlarmClock.Android.csproj",
-				"-p:TargetFramework=net7.0-android",
-				"-p:Configuration=Debug"
-			],
-			"problemMatcher": "$msCompile"
-		}
+        }
     ]
 }

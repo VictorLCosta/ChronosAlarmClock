@@ -1,3 +1,1 @@
-# Despertador Chronos
-
-App multiplataforma genérico de depertador feito em Avalonia.
+# Chronos Alarm Clock

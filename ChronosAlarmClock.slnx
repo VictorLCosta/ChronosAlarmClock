@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ChronosAlarmClock.Android/ChronosAlarmClock.Android.csproj" />
+    <Project Path="src/ChronosAlarmClock.Browser/ChronosAlarmClock.Browser.csproj" />
+    <Project Path="src/ChronosAlarmClock.Core/ChronosAlarmClock.Core.csproj" />
+    <Project Path="src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj" />
+    <Project Path="src/ChronosAlarmClock.Infrastructure/ChronosAlarmClock.Infrastructure.csproj" />
+    <Project Path="src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj" />
+    <Project Path="src/ChronosAlarmClock/ChronosAlarmClock.csproj" />
+  </Folder>
+</Solution>

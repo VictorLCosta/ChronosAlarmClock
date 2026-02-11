@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/UI/AlarmClock.Desktop/bin/Debug/net7.0/AlarmClock.Desktop.dll",
+            "program": "${workspaceFolder}/src/ChronosAlarmClock.Desktop/bin/Debug/net10.0/ChronosAlarmClock.Desktop.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/UI/AlarmClock.Desktop",
+            "cwd": "${workspaceFolder}/src/ChronosAlarmClock.Desktop",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
