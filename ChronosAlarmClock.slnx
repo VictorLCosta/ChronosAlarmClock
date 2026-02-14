@@ -1,4 +1,12 @@
 <Solution>
+  <Folder Name="/Solution Itens/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/ChronosAlarmClock.Android/ChronosAlarmClock.Android.csproj" />
     <Project Path="src/ChronosAlarmClock.Browser/ChronosAlarmClock.Browser.csproj" />

@@ -1,10 +1,13 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:ChronosAlarmClock"
+             xmlns:theme="using:Avalonia.Themes.Neumorphism"
+             xmlns:dialogHostAvalonia="using:DialogHostAvalonia"
              x:Class="ChronosAlarmClock.App"
              RequestedThemeVariant="Default">
 
     <Application.Styles>
-        <FluentTheme />
+        <theme:NeumorphismTheme BaseTheme="Light" />
+        <dialogHostAvalonia:DialogHostStyles />
     </Application.Styles>
 </Application>
