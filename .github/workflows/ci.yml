@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore ChronosAlarmClock.slnx
+
+      - name: Build core
+        run: dotnet build src/ChronosAlarmClock/ChronosAlarmClock.csproj --configuration Release --no-restore
+
+      - name: Build desktop
+        run: dotnet build src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj --configuration Release --no-restore
+
+      - name: Build browser
+        run: dotnet build src/ChronosAlarmClock.Browser/ChronosAlarmClock.Browser.csproj --configuration Release --no-restore
+
+      - name: Test
+        shell: pwsh
+        run: |
+          $testProjects = Get-ChildItem -Recurse -Filter *.csproj |
+            Where-Object {
+              $_.FullName -match '\\test(s)?\\' -or
+              $_.BaseName -match '(\.|^)Tests?$'
+            }
+
+          if (-not $testProjects) {
+            Write-Host "No test projects found."
+            exit 0
+          }
+
+          foreach ($project in $testProjects) {
+            dotnet test $project.FullName --configuration Release --no-build --verbosity normal
+            if ($LASTEXITCODE -ne 0) {
+              exit $LASTEXITCODE
+            }
+          }

@@ -1,0 +1,144 @@
+name: Platform Builds
+
+on:
+  workflow_run:
+    workflows:
+      - CI
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: platform-builds-${{ github.event.workflow_run.head_sha || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  desktop:
+    name: Desktop
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj
+
+      - name: Build
+        run: dotnet build src/ChronosAlarmClock.Desktop/ChronosAlarmClock.Desktop.csproj --configuration Release --no-restore
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-build
+          path: src/ChronosAlarmClock.Desktop/bin/Release/net10.0/
+          if-no-files-found: error
+
+  browser:
+    name: Browser
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore workloads
+        run: dotnet workload restore src/ChronosAlarmClock.Browser/ChronosAlarmClock.Browser.csproj
+
+      - name: Restore
+        run: dotnet restore src/ChronosAlarmClock.Browser/ChronosAlarmClock.Browser.csproj
+
+      - name: Build
+        run: dotnet build src/ChronosAlarmClock.Browser/ChronosAlarmClock.Browser.csproj --configuration Release --no-restore
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-build
+          path: src/ChronosAlarmClock.Browser/bin/Release/net10.0-browser/
+          if-no-files-found: error
+
+  android:
+    name: Android
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore workloads
+        run: dotnet workload restore src/ChronosAlarmClock.Android/ChronosAlarmClock.Android.csproj
+
+      - name: Restore
+        run: dotnet restore src/ChronosAlarmClock.Android/ChronosAlarmClock.Android.csproj
+
+      - name: Build
+        run: dotnet build src/ChronosAlarmClock.Android/ChronosAlarmClock.Android.csproj --configuration Release --no-restore
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build
+          path: |
+            src/ChronosAlarmClock.Android/bin/Release/net10.0-android/**/*.apk
+            src/ChronosAlarmClock.Android/bin/Release/net10.0-android/**/*.aab
+          if-no-files-found: warn
+
+  ios:
+    name: iOS Simulator
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore workloads
+        run: dotnet workload restore src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj
+
+      - name: Restore
+        run: dotnet restore src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj
+
+      - name: Build
+        run: dotnet build src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj --configuration Release --no-restore -p:RuntimeIdentifier=iossimulator-x64 -p:CodesignKey=
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-simulator-build
+          path: src/ChronosAlarmClock.iOS/bin/Release/net10.0-ios/
+          if-no-files-found: warn
