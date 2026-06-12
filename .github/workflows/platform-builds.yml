@@ -131,7 +131,7 @@ jobs:
         run: dotnet workload restore src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj
 
       - name: Restore
-        run: dotnet restore src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj
+        run: dotnet restore src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj -p:RuntimeIdentifier=iossimulator-x64
 
       - name: Build
         run: dotnet build src/ChronosAlarmClock.iOS/ChronosAlarmClock.iOS.csproj --configuration Release --no-restore -p:RuntimeIdentifier=iossimulator-x64 -p:CodesignKey=
